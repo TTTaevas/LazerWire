@@ -5,7 +5,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prepublish": "yarn run build",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "node ./dist/deploy_commands.js",
+    "delete": "node ./dist/delete_commands.js"
   },
   "author": "Taevas",
   "license": "MIT",

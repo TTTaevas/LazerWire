@@ -1,5 +1,5 @@
 import "dotenv/config"
-import { Client, Collection, Events, GatewayIntentBits } from "discord.js"
+import { Client, Collection, GatewayIntentBits, Partials } from "discord.js"
 import fs = require("fs")
 import path = require("path")
 
@@ -13,7 +13,10 @@ declare module "discord.js" {
 if (process.env.DISCORD_TOKEN === undefined) {throw new Error("Can't start without a discord token")}
 
 // Create a new client instance
-const client = new Client({intents: [GatewayIntentBits.Guilds]})
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
+	partials: [Partials.Message, Partials.Channel]
+})
 
 // Add commands to the client
 client.commands = new Collection()
@@ -45,5 +48,5 @@ for (const file of eventFiles) {
 	}
 }
 
-// Log in to Discord with your client's token
+// Log in to Discord with your client"s token
 client.login(process.env.DISCORD_TOKEN)

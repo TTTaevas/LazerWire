@@ -1,4 +1,4 @@
-import { Client, Events } from 'discord.js'
+import { Client, Events } from "discord.js"
 
 let name = Events.ClientReady
 let once = true
