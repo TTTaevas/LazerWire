@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LazerWire</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	</head>
+	<body style="overflow-wrap: break-word; font-family: sans-serif;">
+		<p>
+			<span>
+				Your code is: 
+			</span>
+			<span id="code" style="font-weight: bold;">
+
+			</span>
+		</p>
+		<button onclick="copy(this)" style="font-size: 20px;">Copy it</button>
+		<script>
+			let url = window.location.href
+			let params = new URLSearchParams(url)
+			document.getElementById("code").innerHTML = params.get("code")
+
+			function copy(b) {
+				navigator.clipboard.writeText(document.getElementById("code").innerHTML)
+				.then(() => b.innerHTML = "Copied!")
+				.catch(() => b.innerHTML = "Failed to copy...")
+			}
+		</script>
+	</body>
+</html>

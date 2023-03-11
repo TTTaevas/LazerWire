@@ -10,10 +10,26 @@ let name = Events.InteractionCreate
 let once = false
 let execute = async(interaction: Interaction) => {
 	if (!interaction.isChatInputCommand()) {return}
+
+	const command = interaction.client.commands.get(interaction.commandName)
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`)
+		return
+	}
+
+	if (command.need_api === "none") {
+		try {
+			await command.execute(interaction)
+		} catch (error) {
+			console.error(`Error executing ${interaction.commandName}`)
+			console.error(error)
+		}
+		return
+	}
+
 	let api = apis.find((a) => a.discord_id === interaction.user.id)
 	if (api === undefined) {
 		if (process.env.ID === undefined) {console.error("no id env??"); return}
-		if (process.env.SECRET === undefined) {console.error("no secret env??"); return}
 		if (process.env.REDIRECT_URI === undefined) {console.error("no redirect_uri env??"); return}
 
 		let link = osu.generateAuthorizationURL(
@@ -21,13 +37,10 @@ let execute = async(interaction: Interaction) => {
 			process.env.REDIRECT_URI,
 			["public"]
 		)
-		await interaction.reply(`Can you please send me the code you receive after clicking this link? 🥺👉👈\n${link}`)
-		return
-	}
-
-	const command = interaction.client.commands.get(interaction.commandName)
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`)
+		await interaction.reply({
+			content: `Can you please click this link and send me the code you receive by using \`/sendCode\`? 🥺👉👈\n${link}\nAfter I receive the code, I won't be bothering you again!`,
+			ephemeral: true
+		})
 		return
 	}
 
@@ -37,8 +50,6 @@ let execute = async(interaction: Interaction) => {
 		console.error(`Error executing ${interaction.commandName}`)
 		console.error(error)
 	}
-
-	return
 }
 
 export {name, once, execute}

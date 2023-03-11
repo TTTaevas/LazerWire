@@ -14,8 +14,7 @@ if (process.env.DISCORD_TOKEN === undefined) {throw new Error("Can't start witho
 
 // Create a new client instance
 const client = new Client({
-	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
-	partials: [Partials.Message, Partials.Channel]
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages]
 })
 
 // Add commands to the client
@@ -48,5 +47,5 @@ for (const file of eventFiles) {
 	}
 }
 
-// Log in to Discord with your client"s token
+// Login to the Discord bot account
 client.login(process.env.DISCORD_TOKEN)
