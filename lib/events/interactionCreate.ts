@@ -38,7 +38,7 @@ let execute = async(interaction: Interaction) => {
 			["public"]
 		)
 		await interaction.reply({
-			content: `Can you please click this link and send me the code you receive by using \`/sendCode\`? 🥺👉👈\n${link}\nAfter I receive the code, I won't be bothering you again!`,
+			content: `Can you please click this link and send me the code you receive by using \`/send-code\`? 🥺👉👈\n${link}\nAfter I receive the code, I won't be bothering you again!`,
 			ephemeral: true
 		})
 		return

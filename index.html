@@ -17,6 +17,7 @@
 		<button onclick="copy(this)" style="font-size: 20px;">Copy it</button>
 		<script>
 			let url = window.location.href
+			url = url.substring(url.indexOf("?") + 1)
 			let params = new URLSearchParams(url)
 			document.getElementById("code").innerHTML = params.get("code")
 

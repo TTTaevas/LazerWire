@@ -4,7 +4,7 @@ import { SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js"
 
 let data = new SlashCommandBuilder()
 data.setName("get-code")
-data.setDescription("To get the code you'll need to send using `/sendCode`")
+data.setDescription("To get the code you'll need to send using `/send-code`")
 
 let need_api = "none"
 
@@ -18,7 +18,7 @@ let execute = async function(interaction: ChatInputCommandInteraction) {
 		["public"]
 	)
 	return await interaction.reply({
-		content: `Please click this link and send me the code you receive by using \`/sendCode\`! \n${link}`,
+		content: `Please click this link and send me the code you receive by using \`/send-code\`! \n${link}`,
 		ephemeral: true
 	})
 }
