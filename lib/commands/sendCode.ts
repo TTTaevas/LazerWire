@@ -43,6 +43,7 @@ let execute = async function(interaction: ChatInputCommandInteraction) {
 			object: api,
 			discord_id: interaction.user.id
 		})
+		console.log(`New api from osu ${api.user} / discord ${interaction.user.id}`)
 		await interaction.reply({
 			content: "Success 😌 You should now be able to use commands!",
 			ephemeral: true

@@ -27,8 +27,8 @@ let execute = async function(interaction: ChatInputCommandInteraction, api: osu.
 		return await interaction.reply("Failed to get that match's details...")
 	}
 
-	let description = `Started: ${room.starts_at.toISOString()}`
-	if (room.ends_at) {description += `\nEnded: ${room.ends_at.toISOString()}`}
+	let description = `Started: ${room.starts_at.toUTCString()}`
+	if (room.ends_at) {description += `\nEnded: ${room.ends_at.toUTCString()}`}
 
 	let players = ""
 	leaderboard.sort((x, y) => y.total_score - x.total_score).forEach((l, i) => {
@@ -49,9 +49,9 @@ let execute = async function(interaction: ChatInputCommandInteraction, api: osu.
 	let options = room.playlist.map((item, i) => {
 		let beatmapset = item.beatmap.beatmapset
 		let option = {
-			label: `${i + 1}.`,
+			label: `${i + 1}. ${beatmapset ? `${beatmapset.title}` : ""}`,
 			description: `${beatmapset ? `${beatmapset.artist} - ${beatmapset.title} [${item.beatmap.version}]`.substring(0, 95) + "..." : "Beatmap"}`,
-			value: `r${item.room_id}/i${item.id}`
+			value: `${item.room_id}/${item.id}`
 		}
 		return option
 	})
@@ -59,7 +59,7 @@ let execute = async function(interaction: ChatInputCommandInteraction, api: osu.
 	const row = new ActionRowBuilder<StringSelectMenuBuilder>()
 	.addComponents(
 		new StringSelectMenuBuilder()
-			.setCustomId("select")
+			.setCustomId("match-item")
 			.setPlaceholder("No Beatmap selected...")
 			.addOptions(...options)
 	)
