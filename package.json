@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "yarn run build",
     "build": "tsc",
+    "start": "node ./dist/index.js",
     "deploy": "node ./dist/deploy_commands.js",
     "delete": "node ./dist/delete_commands.js"
   },
